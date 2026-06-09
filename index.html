@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,20 +15,33 @@ body{
 }
 
 header{
-  padding:30px;
+  padding:25px;
   font-size:34px;
   font-weight:bold;
 }
 
 .sub{
   font-size:18px;
-  margin-bottom:20px;
+  margin-bottom:10px;
 }
 
+/* contador */
+#contador{
+  font-size:18px;
+  margin-bottom:20px;
+  font-weight:bold;
+  background:rgba(255,255,255,0.15);
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:12px;
+}
+
+/* música */
 audio{
   margin:10px;
 }
 
+/* galeria */
 .galeria{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -55,8 +67,10 @@ audio{
 .legenda{
   font-size:13px;
   margin-top:6px;
+  font-style:italic;
 }
 
+/* final */
 .final{
   margin:40px 20px;
   background:rgba(255,255,255,0.15);
@@ -84,6 +98,7 @@ button{
   font-weight:bold;
 }
 
+/* corações */
 .heart{
   position:fixed;
   font-size:24px;
@@ -94,15 +109,31 @@ button{
   0%{transform:translateY(0);opacity:1;}
   100%{transform:translateY(-250px);opacity:0;}
 }
+
+/* fogos */
+.fogo{
+  position:fixed;
+  font-size:30px;
+  animation: explodir 1.5s ease-out forwards;
+}
+
+@keyframes explodir{
+  0%{transform:scale(0);opacity:1;}
+  100%{transform:scale(3);opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
 <header>💖 Nosso Amor 💖</header>
-<div class="sub">Cada foto é um pedaço da nossa história</div>
 
-<!-- 🎶 MÚSICA -->
+<div class="sub">Cada foto é um capítulo da nossa história</div>
+
+<!-- 📅 CONTADOR -->
+<div id="contador"></div>
+
+<!-- 🎶 música -->
 <audio autoplay loop controls>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
@@ -110,19 +141,19 @@ button{
 <!-- 📸 GALERIA -->
 <div class="galeria">
 
-<div class="card"><img src="2A34405E-3911-4894-8263-45CC66AFB038.jpeg"><div class="legenda">Nosso começo 💫</div></div>
-<div class="card"><img src="3FD0D138-44AC-448C-81A1-61EFDAAFD035.jpeg"><div class="legenda">💞</div></div>
-<div class="card"><img src="ACB7E092-0660-4BCE-8098-EE5DED814B5C.jpeg"><div class="legenda">😍</div></div>
-<div class="card"><img src="IMG_2367.jpeg"><div class="legenda">✨</div></div>
-<div class="card"><img src="IMG_2496.jpeg"><div class="legenda">💖</div></div>
-<div class="card"><img src="IMG_3075.jpeg"><div class="legenda">💑</div></div>
+<div class="card"><img src="2A34405E-3911-4894-8263-45CC66AFB038.jpeg"><div class="legenda">Foi aqui que tudo começou 💫</div></div>
+<div class="card"><img src="3FD0D138-44AC-448C-81A1-61EFDAAFD035.jpeg"><div class="legenda">O início da nossa história 💕</div></div>
+<div class="card"><img src="ACB7E092-0660-4BCE-8098-EE5DED814B5C.jpeg"><div class="legenda">Seu sorriso me ganhou 😍</div></div>
+<div class="card"><img src="IMG_2367.jpeg"><div class="legenda">Momentos que viraram eternos ✨</div></div>
+<div class="card"><img src="IMG_2496.jpeg"><div class="legenda">Você é meu tudo 💖</div></div>
+<div class="card"><img src="IMG_3075.jpeg"><div class="legenda">Com você tudo é melhor 💑</div></div>
 
 </div>
 
 <!-- 💍 FINAL -->
 <div class="final">
 
-<p>Eu só queria te fazer uma pergunta… 💍</p>
+<p>Depois de tudo isso… 💍</p>
 
 <button id="sim" onclick="sim()">SIM ❤️</button>
 <button id="nao" onmouseover="foge()">NÃO 💔</button>
@@ -133,10 +164,28 @@ button{
 
 <script>
 
-function sim(){
-  document.getElementById("msg").innerHTML =
-  "EU TE AMO!!! ❤️💍<br>Você fez meu mundo mais feliz!";
+/* 📅 CONTADOR DE DIAS */
+function atualizarContador(){
+  const inicio = new Date("2024-11-27");
+  const hoje = new Date();
+  
+  const diff = hoje - inicio;
+  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
 
+  document.getElementById("contador").innerHTML =
+  "💖 Estamos juntos há <b>" + dias + "</b> dias 💖";
+}
+
+atualizarContador();
+setInterval(atualizarContador, 1000 * 60 * 60);
+
+/* 💍 SIM */
+function sim(){
+
+  document.getElementById("msg").innerHTML =
+  "EU TE AMO!!! ❤️💍<br>Você fez minha vida completa!";
+
+  /* ❤️ corações */
   for(let i=0;i<50;i++){
     let h=document.createElement("div");
     h.className="heart";
@@ -144,11 +193,22 @@ function sim(){
     h.style.left=Math.random()*100+"vw";
     h.style.top="80%";
     document.body.appendChild(h);
-
     setTimeout(()=>h.remove(),2000);
+  }
+
+  /* 🎆 fogos */
+  for(let i=0;i<30;i++){
+    let f=document.createElement("div");
+    f.className="fogo";
+    f.innerHTML="🎆";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*60+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
   }
 }
 
+/* 😅 botão fugir */
 function foge(){
   let b=document.getElementById("nao");
   b.style.position="absolute";
